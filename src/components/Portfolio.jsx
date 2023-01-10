@@ -28,7 +28,7 @@ const Portfolio = () => {
     {id:6, name: "react form", category: "React", imgSrc:skillImg5,githubSrc:"react-form"},
     {id:7, name: "shopping cart", category: "React", imgSrc:skillImg6,githubSrc:"shopping-cart-redux"},
     {id:8, name: "cryptocurrency ", category: "React", imgSrc:skillImg7,githubSrc:"cryptocurrency"},
-    {id:9, name: "portfolio", category: "React", imgSrc:skillImg8,githubSrc:"musicplayer"},
+    {id:9, name: "portfolio", category: "React", imgSrc:skillImg8,githubSrc:"portfolio"},
 
   ];
 
