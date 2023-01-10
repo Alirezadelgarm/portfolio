@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useEffect} from 'react';
+import AboutTopbar from './components/AboutTopbar';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import HomeTopbar from './components/HomeTopbar';
+import Portfolio from './components/Portfolio';
+import SettingButton from './components/SettingButton';
+import {useStateContext} from './context/ContextProvider';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+
+  const { setCurrentColor, setCurrentMode } = useStateContext();
+
+  useEffect(() => {
+    const getData=()=>{
+      const currentThemeColor = localStorage.getItem('colorMode');
+      const currentThemeMode = localStorage.getItem('themeMode');
+      if (currentThemeColor && currentThemeMode) {
+        setCurrentColor(currentThemeColor);
+        setCurrentMode(currentThemeMode);
+      }
+    }
+    getData();
+  }, []);
+  
+    return (
+       <>
+     
+       <HomeTopbar/>
+       <AboutTopbar/>
+       <Portfolio/>
+       <Contact/>
+       <Footer/>
+       <SettingButton/>
+        
+       
+       
+       </>
+    );
+};
 
 export default App;
