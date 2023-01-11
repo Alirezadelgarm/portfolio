@@ -7,7 +7,7 @@ import { Cursor, useTypewriter  } from 'react-simple-typewriter';
 const HomeTopbar = () => {
     const { currentColor} = useStateContext();
     const[text]=useTypewriter({
-      words:['Developer',"Designer","Front End ","Freelancer"],
+      words:["Designer","Front End Developer","Freelancer"],
       loop:{},
       typeSpeed:100,
       deleteSpeed:80,
@@ -41,7 +41,7 @@ const HomeTopbar = () => {
     top: 50%;
     left: 50%;
     text-align: center;
-  
+    width:100%;
     `
     
     const MyName=styled.b`

@@ -1,72 +1,129 @@
-import React, { useState } from 'react';
-import { Navbar, Nav, Container } from "react-bootstrap";
+
+import React,{ useRef,useState } from "react";
 import styled from 'styled-components';
 import { useStateContext } from '../context/ContextProvider';
-const NavbarB = () => {
-        const { currentColor} = useStateContext();
-        const [color,setColor]=useState("")
-        const changesColor=()=>{
-            if(window.scrollY>=200){
-                setColor("#000");
-            }else{
-                setColor("");
-            }
-        };
-        window.addEventListener("scroll",changesColor);
+const MyHeader=styled.header`
+display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0 2rem;
+  color: #fff;
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+  
+nav a {
+  margin: 0 2rem;
+  color: #fff;
+  text-decoration: none;
+  opacity:.7;
+}
+
+nav a:hover {
+opacity:1;
+
+}
+
+.nav-btn {
+  padding: 5px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  visibility: hidden;
+  opacity: 0;
+  font-size: 1.8rem;
+}
 
 
+div,nav {
+  display: flex;
+  align-items: center;
+}
 
-     
 
-     const MyNavbar=styled(Navbar)`
-    background-color: transparent;
-    background-color:${color};
-    padding: 10px 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 9999;
-    transition:  0.32s ease-in-out;
-    transition: all 0.5s;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-     `
-    
-   
-const MyLink=styled.a`
-    font-weight: 400;
-    color: #fff !important;
-    letter-spacing: 0.8px;
-    padding: 0 25px;
-    font-size: 18px;
-    opacity: 0.75;
-    text-decoration: none;
-    width: fit-content;
-    &:hover{
-      opacity: 1;
-      color:${currentColor} !important;
-      
-    }
+@media only screen and (max-width: 1024px) {
+  .nav-btn {
+	  visibility: visible;
+	  opacity: 1;
+  }
 
+  nav {
+	  position: fixed;
+	  top: 0;
+	  left: 0;
+	  height: 30%;
+	  width: 100%;
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  justify-content: center;
+	  gap: 1rem;
+	  background-color: #000;
+	  transition: 1s;
+	  transform: translateY(-100vh);
+  }
+
+  .responsive_nav {
+	  transform: none;
+  }
+
+  nav .nav-close-btn {
+	  position: absolute;
+	  top: 5px;
+	  right: 20px;
+	  font-size:25px;
+  }
+
+  nav a {
+	  font-size: 1rem;
+  }
+}
 `
-    return (
-        <>
-    <MyNavbar  collapseOnSelect expand="lg"  variant="dark">
-      <Container>
-      <Navbar.Brand href="#home" style={{color:currentColor}} >Folio</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav"   >
-          <Nav className="ms-auto ">
-            <MyLink href="#home"  >Home</MyLink>
-            <MyLink href="#ABOUT ME"  >About Me</MyLink>
-            <MyLink href="#skills"  >My Skills</MyLink>
-            <MyLink href="#Portfolio"  >Portfolio</MyLink>
-            <MyLink href="#Contact"  >Contact</MyLink>
-          </Nav>   
-        </Navbar.Collapse>
-      </Container>
-     </MyNavbar>
-        </>
-    );
-};
 
-export default NavbarB;
+const Navbar=()=> {
+    const { currentColor } = useStateContext();
+
+	const navRef = useRef();
+	const showNavbar = () => {
+		navRef.current.classList.toggle("responsive_nav");
+	};
+	const [color,setColor]=useState("")
+      const changesColor=()=>{
+	      if(window.scrollY>=200){
+	          setColor("#000");
+	      }else{
+	          setColor("");
+	      }
+	  };
+	  window.addEventListener("scroll",changesColor);
+
+	return (
+		<MyHeader style={{backgroundColor:color}} >
+
+			<h3 style={{color:currentColor}}>Folio</h3>
+			<nav ref={navRef}>
+				<a href="#home">Home</a>
+				<a href="#ABOUT ME">About Me</a>
+				<a href="#skills">My Skills</a>
+				<a href="#Portfolio">Portfolio</a>
+				<a href="#Contact">Contact</a>
+				<button
+					className="nav-btn nav-close-btn"
+					onClick={showNavbar}>
+					<i class="bi bi-x-lg"></i>
+				</button>
+			</nav>
+			<button className="nav-btn" onClick={showNavbar}>
+             <i class="bi bi-list"></i>
+			</button>
+		
+		</MyHeader>
+	);
+}
+
+export default Navbar;
